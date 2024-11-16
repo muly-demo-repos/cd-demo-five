@@ -5,10 +5,6 @@ resource "random_password" "vikoosh_secret_password" {
 
 resource "aws_secretsmanager_secret" "secrets_vikoosh" {
   name = "vikoosh_secrets"
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_secretsmanager_secret_version" "secrets_version_vikoosh" {
