@@ -1,7 +1,5 @@
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 using Vikoosh;
-using Vikoosh.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +25,12 @@ builder.Services.AddCors(builder =>
         }
     );
 });
-builder.Services.AddDbContext<VikooshDbContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+builder.Services.AddDbContext<VikooshDbContext>(
+    (serviceProvider, opt) =>
+    {
+        var connectionString = Environment.GetEnvironmentVariable("DB_URL_DOTNET");
+        opt.UseNpgsql(connectionString);
+    }
 );
 var app = builder.Build();
 
