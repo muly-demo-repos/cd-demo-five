@@ -30,7 +30,7 @@ builder.Services.AddCors(builder =>
 builder.Services.AddDbContext<VikooshDbContext>(
     (serviceProvider, opt) =>
     {
-        var connectionString = Environment.GetEnvironmentVariable("DB_URL_DOTNET");
+        var connectionString = Environment.GetEnvironmentVariable("DB_URL");
         opt.UseNpgsql(connectionString);
     }
 );
