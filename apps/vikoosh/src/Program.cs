@@ -1,5 +1,7 @@
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Vikoosh;
+using Vikoosh.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
