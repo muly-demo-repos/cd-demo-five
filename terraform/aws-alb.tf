@@ -54,3 +54,8 @@ module "ecs_alb_vikoosh" {
     },
   ]
 }
+
+output "dns_name_load_balancer" {
+  description = "DNS name under which the service is exposed"
+  value       = module.ecs_alb_vikoosh.lb_dns_name
+}

@@ -59,7 +59,7 @@ app.UseHttpsRedirection();
 app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<DotnetMigrationsDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<VikooshDbContext>();
     db.Database.Migrate();
 }
 app.Run();
