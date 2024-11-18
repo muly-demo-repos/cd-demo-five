@@ -27,8 +27,12 @@ builder.Services.AddCors(builder =>
         }
     );
 });
-builder.Services.AddDbContext<VikooshDbContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+builder.Services.AddDbContext<VikooshDbContext>(
+    (serviceProvider, opt) =>
+    {
+        var connectionString = Environment.GetEnvironmentVariable("DB_URL");
+        opt.UseNpgsql(connectionString);
+    }
 );
 var app = builder.Build();
 
@@ -53,4 +57,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<VikooshDbContext>();
+    db.Database.Migrate();
+}
 app.Run();
